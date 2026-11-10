@@ -2,6 +2,7 @@ import streamlit as st
 import subprocess
 import json
 import os
+import sys
 import pandas as pd
 
 # Konfigurasi Halaman Streamlit
@@ -34,13 +35,17 @@ if st.button("🚀 Mulai Federated Learning", type="primary"):
         
     st.info("Memulai simulasi Flower...")
     
-    # Perintah eksekusi run_simulation.py
-    cmd = f"python run_simulation.py --rounds {num_rounds} --clients {num_clients}"
+    # Perintah eksekusi menggunakan sys.executable agar menggunakan environment Python yang sama
+    cmd = [
+        sys.executable, 
+        "run_simulation.py", 
+        "--rounds", str(num_rounds), 
+        "--clients", str(num_clients)
+    ]
     
     with st.spinner("Training sedang berlangsung, mohon tunggu..."):
         process = subprocess.Popen(
             cmd, 
-            shell=True, 
             stdout=subprocess.PIPE, 
             stderr=subprocess.STDOUT, 
             text=True
