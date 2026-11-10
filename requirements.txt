@@ -1,4 +1,5 @@
 streamlit
 flwr
+ray
 torch
 pandas
